@@ -1,7 +1,8 @@
+// App.js
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Navbar from "../components/Header";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -34,21 +35,18 @@ function App() {
     }
   
     if (editingUser) {
-      const isConfirmed = confirm("Are you sure you want to update this user?");
-      if (isConfirmed) {
+      if (confirm("Are you sure you want to update this user?")) {
         await axios.put(`${URL}/users/${editingUser.id}`, form);
       }
     } else {
-      const isConfirmed = confirm("Are you sure you want to add this user?");
-      if (isConfirmed) {
+      if (confirm("Are you sure you want to add this user?")) {
         await axios.post(`${URL}/users`, form);
       }
     }
   
-    
     setForm({ name: "", email: "", dob: "" });
     setEditingUser(null);
-    setreg('User Registration')
+    setreg("User Registration");
     fetchUsers();
   };
   
@@ -61,8 +59,7 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    const isConfirmed = confirm("Are you sure you want to delete this user?");
-    if (isConfirmed) {
+    if (confirm("Are you sure you want to delete this user?")) {
       await axios.delete(`${URL}/users/${id}`);
       fetchUsers();
     }
@@ -77,8 +74,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <div className="min-h-screen flex flex-col bg-gray-100">
+      <Navbar/>
 
       <main className="flex-grow p-8 flex justify-center">
         <div className="w-full sm:w-11/12 md:w-9/12 lg:w-2/3 xl:w-1/2 bg-gray-50 p-6 rounded-lg shadow-lg max-w-screen-xl">
@@ -185,8 +182,7 @@ function App() {
             ))}
         </div>
       </main>
-
-      <Footer />
+<Footer/>
     </div>
   );
 }
